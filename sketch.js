@@ -35,26 +35,35 @@ function setup() {
 	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:true});
 	World.add(world, starBody);
 
-	Engine.run(engine);
-
+	
 }
 
 
 function draw() {
   background(bgImg);
-  keyPressed();
+  
+ if(fairy.isTouching(star)){
+	 Matter.Body.setStatic(starBody, true);
+fairy.velocityY = 0;
+ }
+ 
+ star.x = starBody.position.x;
+ star.y = starBody.position.y;
+ 
+ 
+Engine.update(engine);
   drawSprites();
 
 }
 
 function keyPressed() {
 	if(keyCode === DOWN_ARROW){
-		star.velocityY = 3;
+		Matter.Body.setStatic(starBody,false);
 	}
 	if(keyCode === RIGHT_ARROW){
-		fairy.velocityX = 3;
+		fairy.velocityX = 5;
 	}
 	if(keyCode === LEFT_ARROW){
-		fairy.velocityX = -3;
+		fairy.velocityX = -5;
 	}
 }
